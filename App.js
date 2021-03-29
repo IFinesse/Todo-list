@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Alert, Text } from 'react-native';
+import { StyleSheet, View, Alert} from 'react-native';
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading'
-// import { AddTodo } from './src/components/AddTodo.jsx';
 import { Navbar } from './src/components/Navbar.jsx'
 import { MainScreen } from './src/screens/MainScreen.jsx'
 import { TodoScreen } from './src/screens/TodoScreen.jsx';
@@ -11,7 +10,7 @@ import { TodoScreen } from './src/screens/TodoScreen.jsx';
 async function loadApplication () {
   await Font.loadAsync({
     'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
-    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf')
+    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
   })
 }
 
@@ -34,11 +33,11 @@ export default function App() {
   ])
 
     if(!isReady) {
-      return <AppLoading 
+      return (<AppLoading 
         startAsync={loadApplication}
         onError={err => console.log(err)}
         onFinish={() => setIsReady(true)}
-      />
+      />)
     }
 
     // let [fontsLoaded] = Font.useFonts({
@@ -66,11 +65,10 @@ export default function App() {
 
     Alert.alert(
       "Deleting item",
-      `Are you sure to delete "${todo.title}"?`,
+      `Are you sure you want to delete "${todo.title}"?`,
       [
         {
           text: "Cancel",
-          // onPress: () => setTodoId(id),
           style: "cancel"
         },
         {
@@ -88,7 +86,6 @@ export default function App() {
       }
     );
 
-    // setTodo(prev => prev.filter((todo => todo.id !== id)))
   }
 
   const updateTodo = (id, title) => {
@@ -120,7 +117,6 @@ export default function App() {
     <View style={styles.container}>
 
       <Navbar title={"todo app"} />
-      <Text style={styles.test}>asdssfsfe</Text>
       {content}
 
 
