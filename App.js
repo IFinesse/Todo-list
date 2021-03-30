@@ -5,6 +5,7 @@ import AppLoading from 'expo-app-loading'
 import { Navbar } from './src/components/Navbar.jsx'
 import { MainScreen } from './src/screens/MainScreen.jsx'
 import { TodoScreen } from './src/screens/TodoScreen.jsx';
+import {THEME} from './src/theme'
 
 
 async function loadApplication () {
@@ -114,10 +115,13 @@ export default function App() {
   }
   
   return (
-    <View style={styles.container}>
+    <View>
 
       <Navbar title={"todo app"} />
-      {content}
+      <View style={styles.container}>
+          {content}
+      </View>
+      
 
 
     </View>
@@ -126,19 +130,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    paddingHorizontal: THEME.PADDING_HORIZONTAL,
+    paddingVertical: THEME.PADDING_VERTICAL,
   },
-  block: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-    flex: 1
-  },
-  block2: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-    flex: 3
-  },
-  test: {
-    fontFamily: 'roboto-bold'
-  }
 });

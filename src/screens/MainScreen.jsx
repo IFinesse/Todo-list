@@ -1,16 +1,35 @@
-import React from 'react'
-import { View, StyleSheet, FlatList, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, FlatList, Image, Dimensions } from 'react-native'
 import { AddTodo } from '../components/AddTodo'
 import { Todo } from '../components/Todo'
+import { THEME } from '../theme'
 
 export const MainScreen = ({ todos, addTodo, removeTodo, openTodo }) => {
 
-    let content = <FlatList
-        data={todos}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) =>
-            <Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />
-        } />
+    const [deviceWidth, setDeviceWidth] = useState(Dimensions.get('window').width - THEME.PADDING_HORIZONTAL*2);
+    
+    let content = (
+        <View style={ {width: deviceWidth}}>
+            <FlatList
+                data={todos}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) =>
+                    <Todo todo={item} onRemove={removeTodo} onOpen={openTodo} />
+                }
+            />
+        </View>
+    )
+
+    useEffect(() => {
+        const update = () => {
+            const width = Dimensions.get('window').width - THEME.PADDING_HORIZONTAL*2;
+            setDeviceWidth(width);
+        }
+        Dimensions.addEventListener('change', update);
+        return () => {Dimensions.removeEventListener('change', update)};
+    })
+
+
 
     if (todos.length === 0) content = (
         <View style={styles.imageContainer}>

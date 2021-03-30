@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Button } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import { EditModal } from '../components/EditModal'
 import { AppCard } from '../components/ui/AppCard'
 import { AppText } from '../components/ui/AppText'
@@ -16,7 +16,7 @@ export const TodoScreen = ({ goBack, removeTodo, todo, onSave }) => {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <EditModal visible={modal} onCancel={() => setModal(false)} value={todo.title} onSave={saveHandler} />
             <AppCard style={styles.card}>
                 <AppText>{todo.title}</AppText>
@@ -54,16 +54,22 @@ export const TodoScreen = ({ goBack, removeTodo, todo, onSave }) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        // padding: 20,
+        // flex: 1,
+        // justifyContent: 'space-evenly'
+    },
     buttons: {
         flexDirection: "row",
-        justifyContent: "space-evenly"
+        justifyContent: "space-between",
+        marginTop: 30
     },
     button: {
-        width: "40%"
+        width: Dimensions.get('window').width > 400? 200 : 140,
     },
     card: {
-        margin: 30,
-        padding: 15,
+        // margin: 30,
+        // padding: 15,
     }
 
 })
