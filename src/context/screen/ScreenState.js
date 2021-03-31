@@ -1,7 +1,7 @@
-import React, { useReducer } from "react";
-import { ScreenContext } from "./screenContext";
-import { screenReducer } from "./screenReducer";
-import { SCREEN_CHANGED } from "./../types";
+import React, { useReducer } from "react"
+import { ScreenContext } from "./screenContext"
+import { screenReducer } from "./screenReducer"
+import { SCREEN_CHANGED } from "./../types"
 
 export const ScreenState = ({ children }) => {
   const [state, dispatch] = useReducer(screenReducer, null);
@@ -12,5 +12,5 @@ export const ScreenState = ({ children }) => {
     <ScreenContext.Provider value={{ changeScreen, todoId: state }}>
       {children}
     </ScreenContext.Provider>
-  );
-};
+  )
+}

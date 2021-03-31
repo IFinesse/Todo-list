@@ -8,7 +8,7 @@ const handlers = {
     }),
     [REMOVE_TODO]: (state, id) => ( {
         ...state,
-        todos: state.todos.filter(todo => todo.id !==id),
+        todos: state.todos.filter(todo => todo.id !== id),
     }),
     [UPDATE_TODO]: (state, {id, title}) => ( {
         ...state,
