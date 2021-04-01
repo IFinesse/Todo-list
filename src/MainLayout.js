@@ -49,7 +49,7 @@ export const MainLayout = () => {
   return (
     <View>
       <Navbar title={"todo app"} />
-      <View style={styles.container}>{todoId? <MainScreen></MainScreen> : <TodoScreen></TodoScreen>}</View>
+      <View style={styles.container}>{!todoId? <MainScreen></MainScreen> : <TodoScreen></TodoScreen>}</View>
     </View>
   );
 };

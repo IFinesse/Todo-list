@@ -13,10 +13,10 @@ export const TodoScreen = () => {
 
 
     const {todos, updateTodo, removeTodo} = useContext(TodoContext)
-    const {TodoId, changeScreen} = useContext(ScreenContext)
+    const {todoId, changeScreen} = useContext(ScreenContext)
     const [modal, setModal] = useState(false);
 
-    const todo = todos.find(todo => todo.id === TodoId)
+    const todo = todos.find(todo => todo.id === todoId)
 
     console.log(todo);
 
