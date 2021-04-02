@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { View, StyleSheet, FlatList, Image, Dimensions } from 'react-native'
 import { AddTodo } from '../components/AddTodo'
 import { Todo } from '../components/Todo'
+import { AppButton } from '../components/ui/AppButton'
 import { AppLoader } from '../components/ui/AppLoader'
+import { AppText } from '../components/ui/AppText'
 import { ScreenContext } from '../context/screen/screenContext'
 import { TodoContext } from '../context/todo/todoContext'
 import { THEME } from '../theme'
@@ -48,6 +50,13 @@ export const MainScreen = () => {
         
     }
 
+    if (error) {
+        return (<View style={styles.center}>
+                    <AppText style={styles.error}>Something went wrong :{"("}</AppText>
+                    <AppButton onPress={loadTodos}>Try again</AppButton>
+                </View>)
+    }
+
 
 
     if (todos.length === 0) content = (
@@ -90,4 +99,13 @@ const styles = StyleSheet.create({
         width: '100%',
         resizeMode: 'contain',
     },
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    error: {
+        color: THEME.DANGER_COLOR,
+        fontSize: 20
+    }
 })

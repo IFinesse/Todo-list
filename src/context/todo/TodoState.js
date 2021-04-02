@@ -68,7 +68,10 @@ export const TodoState = ( {children} ) => {
 
 
     const fetchTodos = async () => {
+      clearError()
       showLoader()
+      try {
+        
       const response = await fetch ('https://rn-todo-list-8f8c9-default-rtdb.europe-west1.firebasedatabase.app/todos.json', {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -78,6 +81,15 @@ export const TodoState = ( {children} ) => {
       const todos = Object.keys(data).map(key => ({...data[key], id: key}));
       console.log("DATA", data, "TODOS", todos);
       setTimeout( () => {dispatch( {type: FETCH_TODOS, todos}), hideLoader()}, 2000) 
+      } catch (error) {
+        showError('something went wrong :(')
+        console.log(error)
+        hideLoader()
+
+      } finally {
+      }
+      
+      // dispatch( {type: FETCH_TODOS, todos})
       // hideLoader()
     }
 
