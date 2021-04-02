@@ -49,7 +49,12 @@ export const TodoState = ( {children} ) => {
               style: "cancel"
             },
             {
-              text: "OK", onPress: () => {
+              text: "OK", onPress: async () => {
+
+                await fetch(`https://rn-todo-list-8f8c9-default-rtdb.europe-west1.firebasedatabase.app/todos/${id}.json`, {
+                  method: 'DELETE',
+                  headers: {'Content-Type': 'application/json'},
+                })
                 changeScreen(null);
                 dispatch( {type: REMOVE_TODO, id})
               }
@@ -64,9 +69,6 @@ export const TodoState = ( {children} ) => {
         );
     };
 
-
-
-
     const fetchTodos = async () => {
       clearError()
       showLoader()
@@ -80,20 +82,34 @@ export const TodoState = ( {children} ) => {
 
       const todos = Object.keys(data).map(key => ({...data[key], id: key}));
       console.log("DATA", data, "TODOS", todos);
-      setTimeout( () => {dispatch( {type: FETCH_TODOS, todos}), hideLoader()}, 2000) 
+      dispatch( {type: FETCH_TODOS, todos})
+      // hideLoader()
       } catch (error) {
-        showError('something went wrong :(')
+        showError(e)
         console.log(error)
-        hideLoader()
 
       } finally {
+        hideLoader()
       }
       
       // dispatch( {type: FETCH_TODOS, todos})
       // hideLoader()
     }
 
-    const updateTodo = (id, title) => dispatch( {type: UPDATE_TODO, id, title})
+    const updateTodo = async (id, title) => {
+
+      try {
+        await fetch (`https://rn-todo-list-8f8c9-default-rtdb.europe-west1.firebasedatabase.app/todos/${id}.json`, {
+          method: 'PATCH',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify( {title})
+        })
+      } catch (e) {
+        showError(e)
+        console.log(e)
+      }
+      dispatch( {type: UPDATE_TODO, id, title})
+    }
 
     const showLoader = () => dispatch( {type: SHOW_LOADER})
 
