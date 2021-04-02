@@ -2,9 +2,9 @@ import { ADD_TODO, UPDATE_TODO, REMOVE_TODO, SHOW_LOADER, HIDE_LOADER, CLEAR_ERR
 
 
 const handlers = {
-    [ADD_TODO]: (state, {title}) => ( {
+    [ADD_TODO]: (state, {id, title}) => ( {
         ...state,
-        todos: [...state.todos, { id: Date.now().toString(), title }],
+        todos: [...state.todos, { id, title }],
     }),
     [REMOVE_TODO]: (state, {id}) => ({
         ...state,

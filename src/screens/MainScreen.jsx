@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { View, StyleSheet, FlatList, Image, Dimensions } from 'react-native'
 import { AddTodo } from '../components/AddTodo'
 import { Todo } from '../components/Todo'
@@ -8,7 +8,7 @@ import { THEME } from '../theme'
 
 export const MainScreen = () => {
 
-    const {todos, addTodo, removeTodo} = useContext(TodoContext);
+    const {todos, addTodo, removeTodo, fetchTodos, loading, error} = useContext(TodoContext);
 
     const {changeScreen} = useContext(ScreenContext)
 
@@ -25,6 +25,12 @@ export const MainScreen = () => {
             />
         </View>
     )
+
+    const loadTodos = useCallback( async () => await fetchTodos(), [fetchTodos])
+
+    useEffect(() => {
+        loadTodos();
+    }, [])
 
     useEffect(() => {
         const update = () => {
