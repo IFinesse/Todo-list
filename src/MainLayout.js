@@ -47,7 +47,7 @@ export const MainLayout = () => {
   
 
   return (
-    <View>
+    <View style={styles.wrapper}>
       <Navbar title={"todo app"} />
       <View style={styles.container}>{!todoId? <MainScreen></MainScreen> : <TodoScreen></TodoScreen>}</View>
     </View>
@@ -55,8 +55,13 @@ export const MainLayout = () => {
 };
 
 const styles = StyleSheet.create({
+    wrapper: {
+      flex: 1,
+      // justifyContent: 'center',
+      // alignItems: 'center'
+    },
     container: {
-      // flex: 1,
+      flex: 1,
       paddingHorizontal: THEME.PADDING_HORIZONTAL,
       paddingVertical: THEME.PADDING_VERTICAL,
     },

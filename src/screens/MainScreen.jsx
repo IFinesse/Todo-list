@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { View, StyleSheet, FlatList, Image, Dimensions } from 'react-native'
 import { AddTodo } from '../components/AddTodo'
 import { Todo } from '../components/Todo'
+import { AppLoader } from '../components/ui/AppLoader'
 import { ScreenContext } from '../context/screen/screenContext'
 import { TodoContext } from '../context/todo/todoContext'
 import { THEME } from '../theme'
@@ -40,6 +41,12 @@ export const MainScreen = () => {
         Dimensions.addEventListener('change', update);
         return () => {Dimensions.removeEventListener('change', update)};
     })
+
+    if (loading) {
+        // console.log('11111111111');
+         return (<AppLoader />)
+        
+    }
 
 
 

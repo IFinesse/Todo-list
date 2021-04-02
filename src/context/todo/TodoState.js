@@ -2,7 +2,7 @@ import React, {useReducer, useContext} from 'react'
 import {Alert} from 'react-native'
 import {TodoContext} from './todoContext'
 import {todoReducer} from './todoReducer'
-import { ADD_TODO, UPDATE_TODO, REMOVE_TODO, SHOW_LOADER, SHOW_ERROR, CLEAR_ERROR, FETCH_TODOS } from "../types"
+import { ADD_TODO, UPDATE_TODO, REMOVE_TODO, SHOW_LOADER, HIDE_LOADER, SHOW_ERROR, CLEAR_ERROR, FETCH_TODOS } from "../types"
 import { ScreenContext } from '../screen/screenContext'
 
 export const TodoState = ( {children} ) => {
@@ -64,7 +64,11 @@ export const TodoState = ( {children} ) => {
         );
     };
 
+
+
+
     const fetchTodos = async () => {
+      showLoader()
       const response = await fetch ('https://rn-todo-list-8f8c9-default-rtdb.europe-west1.firebasedatabase.app/todos.json', {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -73,12 +77,15 @@ export const TodoState = ( {children} ) => {
 
       const todos = Object.keys(data).map(key => ({...data[key], id: key}));
       console.log("DATA", data, "TODOS", todos);
-      setTimeout( () => dispatch( {type: FETCH_TODOS, todos}), 2000) 
+      setTimeout( () => {dispatch( {type: FETCH_TODOS, todos}), hideLoader()}, 2000) 
+      // hideLoader()
     }
 
     const updateTodo = (id, title) => dispatch( {type: UPDATE_TODO, id, title})
 
     const showLoader = () => dispatch( {type: SHOW_LOADER})
+
+    const hideLoader = () => dispatch( {type: HIDE_LOADER})    
 
     const showError = (error) => dispatch( {type: SHOW_ERROR, error})
 
