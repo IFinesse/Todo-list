@@ -9,14 +9,6 @@ import {Http} from '../../http'
 export const TodoState = ( {children} ) => {
 
     const initialState = {
-        // todos: [{
-        //     id: "111",
-        //     title: "def"
-        //   },      
-        //   {
-        //     id: "2",
-        //     title: "abc"
-        //   },]
         todos: [],
         loading: false,
         error: null
@@ -70,12 +62,8 @@ export const TodoState = ( {children} ) => {
       showLoader()
       try {
       const data = await Http.get('https://rn-todo-list-8f8c9-default-rtdb.europe-west1.firebasedatabase.app/todos.json')
-      console.log('new data', data);
-
       const todos = Object.keys(data).map(key => ({...data[key], id: key}));
-      // console.log("DATA", data, "TODOS", todos);
       dispatch( {type: FETCH_TODOS, todos})
-      // hideLoader()
       } catch (e) {
         showError(e)
         console.log(e)
@@ -83,9 +71,6 @@ export const TodoState = ( {children} ) => {
       } finally {
         hideLoader()
       }
-      
-      // dispatch( {type: FETCH_TODOS, todos})
-      // hideLoader()
     }
 
     const updateTodo = async (id, title) => {
