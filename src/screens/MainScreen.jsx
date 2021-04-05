@@ -21,6 +21,14 @@ export const MainScreen = () => {
         <View style={ {width: deviceWidth}}>
             <FlatList
                 data={todos}
+                ListEmptyComponent={() => {
+                    return (
+                    <View style={styles.imageContainer}>
+            <Image
+                style={styles.image}
+                source={require("../../assets/images/noitemstoshow.jpg")} />
+        </View>)
+                }}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) =>
                     <Todo todo={item} onRemove={removeTodo} onOpen={changeScreen} />
@@ -56,16 +64,6 @@ export const MainScreen = () => {
                     <AppButton onPress={loadTodos}>Try again</AppButton>
                 </View>)
     }
-
-
-
-    if (todos.length === 0) content = (
-        <View style={styles.imageContainer}>
-            <Image
-                style={styles.image}
-                source={require("../../assets/images/noitemstoshow.jpg")} />
-        </View>
-    )
     return (
         <View>
             <View style={styles.block}>
