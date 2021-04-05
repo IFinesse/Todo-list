@@ -44,7 +44,7 @@ async function request(url, method='GET', data) {
     }
     if (method=='POST' || method=='PATCH') config.body = JSON.stringify(data)
     
-    const response = await fetch('https://rn-todo-list-8f8c9-default-rtdb.europe-west1.firebasedatabase.app/todos.json', config)
+    const response = await fetch(url, config)
 
     return await response.json()
 } 
